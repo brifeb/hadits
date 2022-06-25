@@ -1,26 +1,28 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import "./App.css";
+import arbain from "./data/arbain-all.json";
+import HaditsTable from "./components/HaditsTable";
+import Hadits from "./models/Hadits";
+import SearchBar from "./components/SearchBar";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const [filterText, setfilterText] = useState<string>("");
+
+    const haditsArbain: Hadits[] = arbain;
+
+    const handleFilterTextChange = (value:string) => {
+      setfilterText(value)
+    }
+
+    return (
+        <div className="App">
+            <SearchBar
+                filterText={filterText}
+                onFilterTextChange={handleFilterTextChange}
+            />
+            <HaditsTable hadits={haditsArbain} filterText={filterText} />
+        </div>
+    );
 }
 
 export default App;
