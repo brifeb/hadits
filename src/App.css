@@ -1,6 +1,7 @@
 body {
   margin:0;
   font: 14px "Century Gothic", Futura, sans-serif;
+  background-color: #f6f8fd;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
