@@ -6,8 +6,8 @@ https://haditsarbain.vercel.app/
 ### Stacks:
 - React JS
 - TypeScript
-- [react-highlight-words](https://www.npmjs.com/package/react-highlight-words)
 - [Material UI](https://mui.com/)
+- [react-highlight-words](https://www.npmjs.com/package/react-highlight-words)
 ## Todo idea?
 - more hadits
 -
