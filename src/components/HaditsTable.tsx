@@ -11,7 +11,8 @@ interface props {
 
 const HaditsTable: React.FC<props> = ({ hadits, filterText }) => {
     const filterTextToSearch = filterText.length > 2 ? filterText : "";
-    const filteredHadits: Hadits[] = [];
+
+    const filteredHaditsElements: JSX.Element[] = [];
 
     hadits.forEach((hadits: Hadits) => {
         if (
@@ -27,52 +28,53 @@ const HaditsTable: React.FC<props> = ({ hadits, filterText }) => {
         ) {
             return;
         }
-        filteredHadits.push(hadits);
+
+        filteredHaditsElements.push(
+            <Card sx={{ minWidth: 275, m: 3 }} key={hadits.id}>
+                <CardContent>
+                    <h3>{hadits.judul}</h3>
+                    <p style={{ textAlign: "right" }}>{hadits.arab}</p>
+                    <Highlighter
+                        highlightClassName=""
+                        searchWords={[filterTextToSearch]}
+                        autoEscape={true}
+                        textToHighlight={hadits.terjemah}
+                        style={{ whiteSpace: "pre-line" }}
+                    />
+
+                    <h4>Kandungan:</h4>
+                    <Highlighter
+                        highlightClassName=""
+                        searchWords={[filterTextToSearch]}
+                        autoEscape={true}
+                        textToHighlight={hadits.kandungan}
+                        style={{ whiteSpace: "pre-line" }}
+                    />
+
+                    <h4>Ayat-ayat terkait:</h4>
+                    <Highlighter
+                        highlightClassName=""
+                        searchWords={[filterTextToSearch]}
+                        autoEscape={true}
+                        textToHighlight={hadits.ayat}
+                        style={{ whiteSpace: "pre-line" }}
+                    />
+                </CardContent>
+            </Card>
+        );
     });
 
     return (
         <div>
             <Card sx={{ minWidth: 275, m: 3 }}>
                 <CardContent>
-                    {hadits.length === filteredHadits.length
+                    {hadits.length === filteredHaditsElements.length
                         ? `${hadits.length} Hadist Arba'in`
-                        : `ditemukan ${filteredHadits.length} hadits tentang "${filterText}"`}
+                        : `ditemukan ${filteredHaditsElements.length} hadits tentang "${filterText}"`}
                 </CardContent>
             </Card>
 
-            {filteredHadits.map((hadist) => (
-                <Card sx={{ minWidth: 275, m: 3 }} key={hadist.id}>
-                    <CardContent>
-                        <h3>{hadist.judul}</h3>
-                        <p style={{ textAlign: "right" }}>{hadist.arab}</p>
-                        <Highlighter
-                            highlightClassName=""
-                            searchWords={[filterTextToSearch]}
-                            autoEscape={true}
-                            textToHighlight={hadist.terjemah}
-                            style={{ whiteSpace: "pre-line" }}
-                        />
-
-                        <h4>Kandungan:</h4>
-                        <Highlighter
-                            highlightClassName=""
-                            searchWords={[filterTextToSearch]}
-                            autoEscape={true}
-                            textToHighlight={hadist.kandungan}
-                            style={{ whiteSpace: "pre-line" }}
-                        />
-
-                        <h4>Ayat-ayat terkait:</h4>
-                        <Highlighter
-                            highlightClassName=""
-                            searchWords={[filterTextToSearch]}
-                            autoEscape={true}
-                            textToHighlight={hadist.ayat}
-                            style={{ whiteSpace: "pre-line" }}
-                        />
-                    </CardContent>
-                </Card>
-            ))}
+            {filteredHaditsElements}
         </div>
     );
 };
