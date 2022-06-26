@@ -25,6 +25,8 @@ const SearchBar: React.FC<props> = ({ filterText, onFilterTextChange }) => {
                     variant="outlined"
                     value={filterText}
                     onChange={(e) => onFilterTextChange(e.target.value)}
+                    onKeyPress={(e) => e.key === "Enter" && e.preventDefault()}
+                    sx={{ background: "white" }}
                 />
             </Box>
         </Container>

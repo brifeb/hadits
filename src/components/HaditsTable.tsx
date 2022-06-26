@@ -27,7 +27,6 @@ const HaditsTable: React.FC<props> = ({ hadits, filterText }) => {
         ) {
             return;
         }
-
         filteredHadits.push(hadits);
     });
 
@@ -41,10 +40,9 @@ const HaditsTable: React.FC<props> = ({ hadits, filterText }) => {
                 </CardContent>
             </Card>
 
-            {filteredHadits.map((hadist, index) => (
-                <Card sx={{ minWidth: 275, m: 3 }} key={index}>
+            {filteredHadits.map((hadist) => (
+                <Card sx={{ minWidth: 275, m: 3 }} key={hadist.id}>
                     <CardContent>
-                        {/* <p>{hadist.id}</p> */}
                         <h3>{hadist.judul}</h3>
                         <p style={{ textAlign: "right" }}>{hadist.arab}</p>
                         <Highlighter
@@ -56,7 +54,6 @@ const HaditsTable: React.FC<props> = ({ hadits, filterText }) => {
                         />
 
                         <h4>Kandungan:</h4>
-
                         <Highlighter
                             highlightClassName=""
                             searchWords={[filterTextToSearch]}
