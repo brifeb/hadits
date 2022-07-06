@@ -10,21 +10,17 @@ interface props {
 }
 
 const HaditsTable: React.FC<props> = ({ hadits, filterText }) => {
-    const filterTextToSearch = filterText.length > 2 ? filterText : "";
+    let filterTextToSearch = filterText.length > 2 ? filterText : "";
+    filterTextToSearch = filterTextToSearch.toLowerCase();
+    const regexFilterText = new RegExp("\\b" + filterTextToSearch + "\\b");
 
     const filteredHaditsElements: JSX.Element[] = [];
 
     hadits.forEach((hadits: Hadits) => {
         if (
-            hadits.terjemah
-                .toLowerCase()
-                .indexOf(filterTextToSearch.toLowerCase()) === -1 &&
-            hadits.kandungan
-                .toLowerCase()
-                .indexOf(filterTextToSearch.toLowerCase()) === -1 &&
-            hadits.ayat
-                .toLowerCase()
-                .indexOf(filterTextToSearch.toLowerCase()) === -1
+            hadits.terjemah.toLowerCase().search(regexFilterText) === -1 &&
+            hadits.kandungan.toLowerCase().search(regexFilterText) === -1 &&
+            hadits.ayat.toLowerCase().search(regexFilterText) === -1
         ) {
             return;
         }
@@ -68,9 +64,9 @@ const HaditsTable: React.FC<props> = ({ hadits, filterText }) => {
         <div>
             <Card sx={{ minWidth: 275, m: 3 }}>
                 <CardContent>
-                    {hadits.length === filteredHaditsElements.length
-                        ? `${hadits.length} Hadist Arba'in`
-                        : `ditemukan ${filteredHaditsElements.length} hadits tentang "${filterText}"`}
+                    {filterText.length > 2
+                        ? `ditemukan ${filteredHaditsElements.length} hadits tentang "${filterText}"`
+                        : `${hadits.length} Hadist Arba'in`}
                 </CardContent>
             </Card>
 
